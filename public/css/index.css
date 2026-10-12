@@ -1,0 +1,351 @@
+/* ============================================================
+   juanperro - css/index.css  (estilos de la pagina principal)
+   ============================================================ */
+
+.tablero {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 26px 40px;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    grid-template-areas:
+        "perro acciones"
+        "perro ranking"
+        "historial ranking";
+    gap: 18px;
+    align-items: start;
+}
+
+.panel--perro { grid-area: perro; }
+.panel--acciones { grid-area: acciones; }
+.panel--ranking { grid-area: ranking; }
+.panel--historial { grid-area: historial; }
+
+/* --- Escenario del perro ---------------------------------- */
+.escenario {
+    position: relative;
+    border-bottom: 1px solid var(--linea-suave);
+    padding: 6px 6px 14px;
+}
+
+.burbuja {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    max-width: 62%;
+    border: 1px solid var(--blanco);
+    background-color: rgba(0, 0, 0, 0.82);
+    padding: 8px 12px;
+    font-size: 12.5px;
+    color: var(--blanco);
+    transition: opacity 0.3s ease;
+}
+
+.burbuja--fuera { opacity: 0; }
+
+/* --- Medidores -------------------------------------------- */
+.medidores {
+    margin-top: 18px;
+    display: grid;
+    gap: 10px;
+}
+
+.medidor {
+    display: grid;
+    grid-template-columns: 92px 1fr 44px;
+    align-items: center;
+    gap: 12px;
+}
+
+.medidor-nombre {
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gris);
+}
+
+.medidor-valor {
+    font-size: 12px;
+    text-align: right;
+    color: var(--gris-claro);
+    font-variant-numeric: tabular-nums;
+}
+
+.barra {
+    position: relative;
+    height: 8px;
+    border: 1px solid var(--linea);
+    background-color: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+}
+
+.barra-fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background-color: var(--blanco);
+    transition: width 0.55s cubic-bezier(0.22, 0.61, 0.36, 1), background-color 0.3s ease;
+}
+
+.medidor[data-stat="hambre"] .barra-fill { background-color: #ffffff; }
+.medidor[data-stat="energia"] .barra-fill { background-color: #d4d4d4; }
+.medidor[data-stat="felicidad"] .barra-fill { background-color: #ff4d4d; }
+.medidor[data-stat="limpieza"] .barra-fill { background-color: #9a9a9a; }
+
+.medidor--alerta .barra-fill { background-color: var(--rojo); }
+.medidor--alerta .medidor-nombre { color: var(--rojo); }
+
+/* --- Acciones --------------------------------------------- */
+.acciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.accion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--fuente);
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blanco);
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--linea);
+    border-radius: 0;
+    padding: 13px 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.accion:hover { background-color: var(--blanco); color: var(--negro); border-color: var(--blanco); }
+.accion:hover .accion-icono { color: var(--negro); }
+.accion:active { border-color: var(--rojo); }
+.accion[disabled] { opacity: 0.4; cursor: default; }
+
+.accion-icono { font-size: 10px; color: var(--rojo); }
+.accion-txt { line-height: 1.2; }
+
+/* --- Cuidador --------------------------------------------- */
+.cuidador { border-top: 1px solid var(--linea-suave); padding-top: 16px; }
+
+.cuidador-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gris);
+}
+
+.cuidador-fila { display: flex; gap: 8px; }
+
+.cuidador-input {
+    flex: 1;
+    font-family: var(--fuente);
+    font-size: 13px;
+    color: var(--blanco);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--linea);
+    border-radius: 0;
+    padding: 10px 12px;
+    outline: none;
+}
+
+.cuidador-input:focus { border-color: var(--rojo); }
+
+.aviso {
+    margin: 10px 0 0;
+    font-size: 11.5px;
+    color: var(--gris);
+}
+
+.aviso--ok { color: var(--blanco); }
+.aviso--error { color: var(--rojo); }
+
+/* --- Ranking ---------------------------------------------- */
+.ranking,
+.historial { list-style: none; margin: 0; padding: 0; }
+
+.ranking-item {
+    display: grid;
+    grid-template-columns: 26px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--linea-suave);
+    font-size: 13px;
+}
+
+.ranking-item:last-child { border-bottom: 0; }
+
+.ranking-puesto {
+    font-size: 11px;
+    color: var(--gris);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.ranking-item--top1 .ranking-puesto,
+.ranking-item--top1 .ranking-cuidador { color: var(--rojo); }
+
+.ranking-cuidador { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.ranking-cant { font-size: 11px; letter-spacing: 0.1em; color: var(--gris-claro); }
+
+.ranking-vacio,
+.historial-vacio { font-size: 12.5px; color: var(--gris); padding: 6px 0; }
+
+/* --- Historial -------------------------------------------- */
+.historial-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--linea-suave);
+    font-size: 12.5px;
+    color: var(--gris-claro);
+}
+
+.historial-item:last-child { border-bottom: 0; }
+.historial-hora { font-size: 11px; color: var(--gris); white-space: nowrap; }
+
+/* ============================================================
+   ESTADOS DE JUAN (los pone js/juan.js en <svg id="juanSvg">)
+   ============================================================ */
+
+.juan { overflow: visible; }
+.juan-grupo { transform-box: fill-box; transform-origin: 50% 100%; }
+#grupoCola { transform-box: fill-box; transform-origin: 0% 50%; }
+#grupoCabeza { transform-box: fill-box; transform-origin: 50% 90%; }
+#grupoCuerpo { animation: juan-respirar 3.6s ease-in-out infinite; }
+#grupoHocico { transform-box: fill-box; transform-origin: 50% 20%; }
+
+@keyframes juan-respirar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+@keyframes juan-menear {
+    0% { transform: rotate(-16deg); }
+    100% { transform: rotate(20deg); }
+}
+
+@keyframes juan-saltar {
+    0%, 100% { transform: translateY(0); }
+    28% { transform: translateY(-20px); }
+    55% { transform: translateY(-4px); }
+    72% { transform: translateY(-11px); }
+}
+
+@keyframes juan-masticar {
+    0%, 100% { transform: translateY(0) scaleY(1); }
+    50% { transform: translateY(3px) scaleY(1.12); }
+}
+
+@keyframes juan-caminar {
+    0%, 100% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+}
+
+@keyframes juan-gota {
+    0% { opacity: 0; transform: translateY(0); }
+    35% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(16px); }
+}
+
+@keyframes juan-zzz {
+    0% { opacity: 0; transform: translateY(0) scale(0.8); }
+    35% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-22px) scale(1.15); }
+}
+
+@keyframes juan-flotante {
+    0% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -58px); }
+}
+
+/* Feliz: cola que no para, lengua afuera */
+.juan--feliz #grupoCola { animation: juan-menear 0.32s ease-in-out infinite alternate; }
+.juan--feliz #lengua { opacity: 1; }
+.juan--feliz .juan-pelota { fill: var(--rojo); }
+
+/* Tranquilo: cola lenta */
+.juan--tranquilo #grupoCola { animation: juan-menear 1.5s ease-in-out infinite alternate; }
+
+/* Hambriento: lengua afuera + baba cayendo */
+.juan--hambriento #lengua { opacity: 1; }
+.juan--hambriento #baba { animation: juan-gota 1.4s ease-in infinite; }
+.juan--hambriento #grupoCabeza { transform: rotate(-3deg); }
+.juan--hambriento #grupoCola { animation: juan-menear 2.4s ease-in-out infinite alternate; }
+
+/* Cansado: ojos cerrados y Z */
+.juan--cansado #grupoOjos { transform: scaleY(0.12); transform-origin: 50% 76px; }
+.juan--cansado #grupoZzz { opacity: 1; }
+.juan--cansado #grupoCuerpo { animation: juan-respirar 5.2s ease-in-out infinite; }
+.juan--cansado #grupoCola { transform: rotate(-24deg); }
+
+/* Triste: orejas gachas */
+.juan--triste #orejaIzq { transform: rotate(22deg) translate(4px, 8px); }
+.juan--triste #orejaDer { transform: rotate(-22deg) translate(-4px, 8px); }
+.juan--triste #grupoCola { transform: rotate(-16deg); }
+
+/* Sucio: manchas a la vista */
+.juan--sucio .juan-manchas { opacity: 1; }
+
+/* Animaciones de accion (se sacan solas por timeout en js/juan.js) */
+.juan--accion-comiendo #grupoHocico { animation: juan-masticar 0.3s ease-in-out 5; }
+.juan--accion-jugando { animation: juan-saltar 0.62s ease-out 3; }
+.juan--accion-jugando #grupoCola { animation: juan-menear 0.2s ease-in-out infinite alternate; }
+.juan--accion-jugando .juan-juguete { opacity: 1; }
+.juan--accion-paseando .juan-patines { animation: juan-caminar 0.42s ease-in-out 6; }
+.juan--accion-paseando #grupoCola { animation: juan-menear 0.26s ease-in-out infinite alternate; }
+.juan--accion-acariciando #grupoCabza,
+.juan--accion-acariciando #grupoCabeza { animation: juan-respirar 1.4s ease-in-out 2; }
+.juan--accion-acariciando #grupoCola { animation: juan-menear 1.1s ease-in-out infinite alternate; }
+.juan--accion-baniando .juan-manchas { opacity: 0; transition: opacity 0.8s ease; }
+.juan--accion-baniando #grupoCuerpo { animation: juan-saltar 0.5s ease-out 2; }
+
+.juan-zzz .juan-z { animation: juan-zzz 2.6s ease-out infinite; }
+.juan-zzz .juan-z--2 { animation-delay: 0.7s; }
+.juan-zzz .juan-z--3 { animation-delay: 1.4s; }
+
+/* Globo flotante "+" al cuidar a Juan */
+.escenario { position: relative; }
+
+.flotante {
+    position: absolute;
+    left: 50%;
+    top: 26%;
+    transform: translate(-50%, 0);
+    border: 1px solid var(--rojo);
+    background-color: rgba(0, 0, 0, 0.85);
+    color: var(--blanco);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    animation: juan-flotante 1.4s ease-out forwards;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+    .tablero {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "perro"
+            "acciones"
+            "ranking"
+            "historial";
+        padding: 20px 16px 32px;
+    }
+}
+
+@media (max-width: 520px) {
+    .acciones { grid-template-columns: 1fr; }
+    .medidor { grid-template-columns: 78px 1fr 38px; }
+}

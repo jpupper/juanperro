@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUAN — el perro del ecosistema</title>
+    <meta name="description" content="Juan es un perro y es uno solo: todos los que entran al ecosistema Fullscreen lo cuidan. Alimentalo, juga, sacalo a pasear y subí en el ranking de cuidadores.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap">
+    <link rel="stylesheet" href="styles.css?v=1">
+    <link rel="stylesheet" href="css/index.css?v=1">
+</head>
+<body data-animo="tranquilo">
+    <canvas id="fondoCanvas" aria-hidden="true"></canvas>
+
+    <header class="topbar">
+        <a class="marca" href="https://fullscreencode.com/">
+            <span class="marca-punto" aria-hidden="true"></span>
+            <span class="marca-titulo">JUAN</span>
+            <span class="marca-sub">el perro del ecosistema</span>
+        </a>
+        <div class="topbar-estado">
+            <span class="chip" id="chipNivel">NIVEL 1</span>
+            <span class="chip chip--rojo" id="chipAnimo">CONOCIENDO A JUAN</span>
+        </div>
+    </header>
+
+    <main class="tablero">
+        <section class="panel panel--perro">
+            <div class="escenario">
+                <div class="burbuja" id="burbuja">Guau.</div>
+                <svg class="juan" id="juanSvg" viewBox="0 0 240 210" role="img" aria-label="Juan, el perro">
+                    <g class="juan-grupo juan-grupo--cuerpo" id="grupoCuerpo">
+                        <ellipse class="juan-cuerpo" cx="120" cy="166" rx="54" ry="42"></ellipse>
+                        <ellipse class="juan-panza" cx="120" cy="174" rx="34" ry="28"></ellipse>
+                        <g class="juan-patines">
+                            <rect class="juan-pata" x="86" y="156" width="20" height="48"></rect>
+                            <rect class="juan-pata" x="134" y="156" width="20" height="48"></rect>
+                            <ellipse class="juan-pie" cx="96" cy="204" rx="15" ry="7"></ellipse>
+                            <ellipse class="juan-pie" cx="144" cy="204" rx="15" ry="7"></ellipse>
+                        </g>
+                        <g class="juan-manchas" id="grupoManchas">
+                            <ellipse class="juan-mancha" cx="96" cy="150" rx="11" ry="7" transform="rotate(-18 96 150)"></ellipse>
+                            <ellipse class="juan-mancha" cx="146" cy="178" rx="9" ry="6" transform="rotate(12 146 178)"></ellipse>
+                            <ellipse class="juan-mancha" cx="118" cy="192" rx="7" ry="5"></ellipse>
+                        </g>
+                        <g class="juan-cola-grupo" id="grupoCola">
+                            <path class="juan-cola" d="M172 152 C 200 150, 208 122, 196 104"></path>
+                        </g>
+                    </g>
+
+                    <g class="juan-grupo juan-grupo--cabeza" id="grupoCabeza">
+                        <ellipse class="juan-oreja" id="orejaIzq" cx="80" cy="52" rx="17" ry="27" transform="rotate(-16 80 52)"></ellipse>
+                        <ellipse class="juan-oreja" id="orejaDer" cx="160" cy="52" rx="17" ry="27" transform="rotate(16 160 52)"></ellipse>
+                        <circle class="juan-cabeza" cx="120" cy="82" r="48"></circle>
+                        <g class="juan-ojos" id="grupoOjos">
+                            <circle class="juan-ojo" cx="101" cy="76" r="7"></circle>
+                            <circle class="juan-ojo" cx="139" cy="76" r="7"></circle>
+                            <circle class="juan-brillo" cx="103" cy="73" r="2"></circle>
+                            <circle class="juan-brillo" cx="141" cy="73" r="2"></circle>
+                        </g>
+                        <g class="juan-hocico-grupo" id="grupoHocico">
+                            <ellipse class="juan-hocico" cx="120" cy="106" rx="27" ry="21"></ellipse>
+                            <ellipse class="juan-nariz" cx="120" cy="97" rx="11" ry="8"></ellipse>
+                            <path class="juan-boca" d="M120 105 L 120 113 M120 113 C 114 120, 104 119, 101 113 M120 113 C 126 120, 136 119, 139 113"></path>
+                            <path class="juan-lengua" id="lengua" d="M112 114 C 112 132, 128 132, 128 114 Z"></path>
+                            <circle class="juan-baba" id="baba" cx="110" cy="128" r="4"></circle>
+                        </g>
+                        <rect class="juan-collar" x="86" y="126" width="68" height="11"></rect>
+                        <circle class="juan-chapa" cx="120" cy="139" r="6"></circle>
+                    </g>
+
+                    <g class="juan-zzz" id="grupoZzz">
+                        <text class="juan-z" x="176" y="46">z</text>
+                        <text class="juan-z juan-z--2" x="192" y="32">z</text>
+                        <text class="juan-z juan-z--3" x="206" y="20">Z</text>
+                    </g>
+
+                    <g class="juan-juguete" id="grupoJuguete">
+                        <circle class="juan-pelota" cx="212" cy="196" r="13"></circle>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="medidores">
+                <div class="medidor" data-stat="hambre">
+                    <span class="medidor-nombre">Hambre</span>
+                    <span class="barra"><span class="barra-fill" id="barraHambre"></span></span>
+                    <span class="medidor-valor" id="valorHambre">—</span>
+                </div>
+                <div class="medidor" data-stat="energia">
+                    <span class="medidor-nombre">Energía</span>
+                    <span class="barra"><span class="barra-fill" id="barraEnergia"></span></span>
+                    <span class="medidor-valor" id="valorEnergia">—</span>
+                </div>
+                <div class="medidor" data-stat="felicidad">
+                    <span class="medidor-nombre">Felicidad</span>
+                    <span class="barra"><span class="barra-fill" id="barraFelicidad"></span></span>
+                    <span class="medidor-valor" id="valorFelicidad">—</span>
+                </div>
+                <div class="medidor" data-stat="limpieza">
+                    <span class="medidor-nombre">Limpieza</span>
+                    <span class="barra"><span class="barra-fill" id="barraLimpieza"></span></span>
+                    <span class="medidor-valor" id="valorLimpieza">—</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel panel--acciones">
+            <h2 class="panel-titulo">Cuidar a Juan</h2>
+            <p class="panel-bajada">Juan es <strong>uno solo</strong> para todo el ecosistema. Lo que hacés acá lo ve el resto.</p>
+            <div class="acciones" id="acciones">
+                <button type="button" class="accion" data-accion="alimentar">
+                    <span class="accion-icono" aria-hidden="true">●</span>
+                    <span class="accion-txt">Darle de comer</span>
+                </button>
+                <button type="button" class="accion" data-accion="jugar">
+                    <span class="accion-icono" aria-hidden="true">▲</span>
+                    <span class="accion-txt">Jugar</span>
+                </button>
+                <button type="button" class="accion" data-accion="pasear">
+                    <span class="accion-icono" aria-hidden="true">▶</span>
+                    <span class="accion-txt">Sacarlo a pasear</span>
+                </button>
+                <button type="button" class="accion" data-accion="acariciar">
+                    <span class="accion-icono" aria-hidden="true">◆</span>
+                    <span class="accion-txt">Mimos</span>
+                </button>
+                <button type="button" class="accion" data-accion="banar">
+                    <span class="accion-icono" aria-hidden="true">○</span>
+                    <span class="accion-txt">Bañarlo</span>
+                </button>
+            </div>
+
+            <div class="cuidador">
+                <label class="cuidador-label" for="inputCuidador">¿Cómo te llamás?</label>
+                <div class="cuidador-fila">
+                    <input class="cuidador-input" id="inputCuidador" type="text" maxlength="24" placeholder="Anónimo" autocomplete="off">
+                    <button type="button" class="btn-plano" id="btnGuardarCuidador">Guardar</button>
+                </div>
+                <p class="aviso" id="aviso">Sin nombre quedás como «Anónimo» en el ranking.</p>
+            </div>
+        </section>
+
+        <section class="panel panel--ranking">
+            <h2 class="panel-titulo">Ranking de cuidadores</h2>
+            <ol class="ranking" id="ranking">
+                <li class="ranking-vacio">Cargando…</li>
+            </ol>
+        </section>
+
+        <section class="panel panel--historial">
+            <h2 class="panel-titulo">Últimos cuidados</h2>
+            <ul class="historial" id="historial">
+                <li class="historial-vacio">Cargando…</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <p class="pie-txt">Hecho en el ecosistema <a href="https://fullscreencode.com/">Fullscreen Code</a>. Juan no es un logo: es un perro compartido.</p>
+        <p class="pie-meta" id="pieMeta"></p>
+    </footer>
+
+    <script src="config.js?v=1"></script>
+    <script src="js/ui.js?v=1"></script>
+    <script src="js/api.js?v=1"></script>
+    <script src="js/juan.js?v=1"></script>
+    <script src="js/fondo.js?v=1"></script>
+    <script src="js/paginas/index.js?v=1"></script>
+    <script src="https://vps-4455523-x.dattaweb.com/fscauth/js/fsc-button.js?v=10" data-fsc-pos="bottom-left"></script>
+</body>
+</html>

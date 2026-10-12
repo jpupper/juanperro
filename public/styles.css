@@ -1,0 +1,219 @@
+/* ============================================================
+   juanperro - styles.css  (base + design system FSC)
+   Paleta: negro / blanco / rojo. Sin bordes redondeados.
+   ============================================================ */
+
+:root {
+    --negro: #000000;
+    --blanco: #ffffff;
+    --rojo: #ff0000;
+    --gris: #8a8a8a;
+    --gris-claro: #c9c9c9;
+    --linea: rgba(255, 255, 255, 0.16);
+    --linea-suave: rgba(255, 255, 255, 0.08);
+    --panel: rgba(255, 255, 255, 0.028);
+    --fuente: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+html {
+    background-color: var(--negro);
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background-color: transparent;
+    color: var(--blanco);
+    font-family: var(--fuente);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+}
+
+#fondoCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+a { color: var(--blanco); text-decoration: none; }
+a:hover { color: var(--rojo); }
+
+strong { font-weight: 500; }
+
+.topbar,
+.tablero,
+.pie { position: relative; z-index: 1; }
+
+/* --- Barra superior --------------------------------------- */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 18px 26px;
+    border-bottom: 1px solid var(--linea);
+    background-color: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.marca { display: flex; align-items: baseline; gap: 12px; }
+
+.marca-punto {
+    width: 10px;
+    height: 10px;
+    background-color: var(--rojo);
+    display: inline-block;
+    transform: translateY(-1px);
+}
+
+.marca-titulo {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+}
+
+.marca-sub {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gris);
+}
+
+.topbar-estado { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.chip {
+    border: 1px solid var(--linea);
+    padding: 5px 12px;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gris-claro);
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.chip--rojo { border-color: var(--rojo); color: var(--blanco); }
+
+/* --- Paneles ---------------------------------------------- */
+.panel {
+    border: 1px solid var(--linea);
+    background-color: var(--panel);
+    padding: 22px;
+}
+
+.panel-titulo {
+    margin: 0 0 6px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+}
+
+.panel-bajada {
+    margin: 0 0 18px;
+    font-size: 13px;
+    color: var(--gris);
+}
+
+/* --- Botones ---------------------------------------------- */
+.btn-plano {
+    font-family: var(--fuente);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blanco);
+    background-color: transparent;
+    border: 1px solid var(--blanco);
+    border-radius: 0;
+    padding: 10px 18px;
+    cursor: pointer;
+    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.btn-plano:hover { background-color: var(--blanco); color: var(--negro); }
+.btn-plano:active { border-color: var(--rojo); }
+.btn-plano[disabled] { opacity: 0.35; cursor: default; }
+
+/* --- Pie -------------------------------------------------- */
+.pie {
+    border-top: 1px solid var(--linea);
+    background-color: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 20px 26px 26px;
+    font-size: 12.5px;
+    color: var(--gris);
+}
+
+.pie-txt { margin: 0 0 4px; }
+.pie-meta { margin: 0; font-size: 11px; letter-spacing: 0.08em; color: rgba(138, 138, 138, 0.75); }
+
+/* El boton FSC en modo flow deja una franja: mismo fondo que el pie */
+#fscBadgeWrap { background-color: rgba(0, 0, 0, 0.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+
+/* --- El perro (formas base) ------------------------------- */
+.juan { width: 100%; max-width: 420px; height: auto; display: block; margin: 0 auto; }
+
+.juan-cuerpo,
+.juan-cabeza,
+.juan-oreja,
+.juan-pata,
+.juan-pie,
+.juan-hocico,
+.juan-pelota {
+    fill: var(--blanco);
+    stroke: var(--negro);
+    stroke-width: 3;
+}
+
+.juan-panza { fill: none; stroke: rgba(0, 0, 0, 0.18); stroke-width: 3; }
+.juan-oreja { fill: #f2f2f2; }
+.juan-ojo { fill: var(--negro); }
+.juan-brillo { fill: var(--blanco); }
+.juan-nariz { fill: var(--negro); }
+
+.juan-boca {
+    fill: none;
+    stroke: var(--negro);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+}
+
+.juan-lengua { fill: var(--rojo); opacity: 0; }
+.juan-baba { fill: var(--blanco); stroke: var(--negro); stroke-width: 2; opacity: 0; }
+.juan-collar { fill: var(--rojo); stroke: var(--negro); stroke-width: 2.5; }
+.juan-chapa { fill: #f0c000; stroke: var(--negro); stroke-width: 2; }
+.juan-cola { fill: none; stroke: var(--negro); stroke-width: 9; stroke-linecap: round; }
+.juan-mancha { fill: rgba(0, 0, 0, 0.28); }
+.juan-manchas { opacity: 0; }
+.juan-zzz { opacity: 0; }
+
+.juan-z {
+    fill: var(--blanco);
+    font-family: var(--fuente);
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.juan-pelota { fill: var(--rojo); }
+.juan-juguete { opacity: 0; }
+
+@media (max-width: 620px) {
+    .marca-sub { display: none; }
+    .topbar { padding: 14px 16px; }
+    .panel { padding: 16px; }
+}
