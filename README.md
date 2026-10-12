@@ -3,11 +3,14 @@
 App del ecosistema Fullscreen: **Juan es un perro y es uno solo**. Todos los que entran
 (front del FTP, backend del VPS) cuidan al mismo perro y compiten por el ranking de cuidadores.
 
-- **Producción (link para humanos):** https://fullscreencode.com/juanperro/
+- **Producción (link para humanos):** https://fullscreencode.com/carloskernel/juanperro/
+  (espacio común `carloskernel`, regla §0.15 del skill maestro: el front vive en la raíz del FTP como
+  `/carloskernel/juanperro/`. La URL vieja `/juanperro/` quedó como redirección a esta.)
 - **Backend interno (VPS/nginx):** https://vps-4455523-x.dattaweb.com/juanperro/api
 - **Local:** http://localhost:3260/juanperro/
-- **Puerto:** 3260 · **BASE_PATH:** `/juanperro` · **PM2:** `juanperro` · **Carpeta FTP:** `/juanperro/`
+- **Puerto:** 3260 · **BASE_PATH:** `/juanperro` · **PM2:** `juanperro` · **Carpeta FTP:** `/carloskernel/juanperro/`
   (la regla 3 del `.htaccess` raíz sirve la carpeta tal cual: no hace falta tocar el `.htaccess`).
+- **Publicar:** `python deployscripts/fsc_publish_carloskernel.py "D:/Programacion/sistemasfullscreen/juanperro/public" --nombre juanperro`
 - **Repo:** https://github.com/jpupper/juanperro
 
 ## Qué hace

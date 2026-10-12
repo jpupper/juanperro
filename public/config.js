@@ -3,8 +3,13 @@
 // API y dependencias tecnicas -> VPS. Links para humanos -> dominio publico.
 // ============================================================
 (function () {
+  // El front puede servirse desde dos lugares del FTP/dominio público:
+  //   /carloskernel/juanperro/  -> espacio común (el lugar OFICIAL desde 12-Oct-2026)
+  //   /juanperro/               -> ubicación vieja (hoy sólo redirige al espacio común)
+  // y desde el VPS en /juanperro/. La API es SIEMPRE la del VPS.
   var path = window.location.pathname || '';
-  var BASE = path.indexOf('/juanperro') === 0 ? '/juanperro' : '';
+  var match = path.match(/^(.*?\/juanperro)(?:\/|$)/);
+  var BASE = match ? match[1] : '/juanperro';
   var host = window.location.hostname
   var isLocal = host === 'localhost' || host === '127.0.0.1' || host.indexOf('localhost') !== -1;
   var isVps = host.indexOf('dattaweb.com') !== -1 || host.indexOf('vps-') === 0;
@@ -14,7 +19,7 @@
     ? window.location.origin + BASE + '/api'
     : 'https://vps-4455523-x.dattaweb.com/juanperro/api';
 
-  var PUBLIC_BASE = isLocal ? window.location.origin + BASE : 'https://fullscreencode.com/juanperro';
+  var PUBLIC_BASE = isLocal ? window.location.origin + BASE : 'https://fullscreencode.com' + BASE;
 
   window.CONFIG = {
     APP: 'juanperro',
