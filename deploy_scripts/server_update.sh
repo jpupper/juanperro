@@ -51,23 +51,28 @@ echo "Instalando dependencias de Node..."
 npm install --no-fund --no-audit
 
 # 5. NGINX: agrega el location si todavia no existe
-CONF="/etc/nginx/sites-available/vps-4455523-x"
+#    El server block de vps-4455523-x vive en el archivo de sites-enabled que
+#    declara ese server_name (no esta en sites-available con ese nombre).
+CONF=$(grep -rl "server_name vps-4455523-x.dattaweb.com" /etc/nginx/sites-enabled/ 2>/dev/null | head -1)
 BLOCK="/root/juanperro/nginx_juanperro.conf"
-if [ -f "$CONF" ] && ! grep -q "location $BASE" "$CONF"; then
-    echo "Agregando location $BASE a nginx..."
-    cp "$CONF" "/root/nginx-backups/vps-4455523-x.$(date +%Y%m%d%H%M%S).bak" 2>/dev/null || true
-    # el bloque se inserta antes del primer 'listen 443'
-    awk -v bloque="$BLOCK" '
-        /listen 443/ && !hecho {
+if [ -z "$CONF" ]; then
+    echo "AVISO nginx: no encontre el archivo con server_name vps-4455523-x.dattaweb.com."
+elif grep -q "location $BASE" "$CONF"; then
+    echo "nginx: location $BASE ya presente en $CONF."
+else
+    echo "Agregando location $BASE a $CONF..."
+    mkdir -p /root/nginx-backups
+    cp "$CONF" "/root/nginx-backups/$(basename $CONF).$(date +%Y%m%d%H%M%S).bak"
+    # el bloque entra justo despues del server_name del server block del VPS
+    awk -v bloque="$BLOCK" -v srv="server_name vps-4455523-x.dattaweb.com;" '
+        { print }
+        index($0, srv) && !hecho {
             while ((getline linea < bloque) > 0) print linea
             close(bloque)
             hecho = 1
         }
-        { print }
     ' "$CONF" > "$CONF.nuevo" && mv "$CONF.nuevo" "$CONF"
-    nginx -t && nginx -s reload
-else
-    echo "nginx: location $BASE ya presente (o conf ausente)."
+    if nginx -t; then nginx -s reload; else echo "ERROR nginx: revirtiendo"; cp "$CONF".*bak "$CONF" 2>/dev/null; exit 1; fi
 fi
 
 # 6. PM2
