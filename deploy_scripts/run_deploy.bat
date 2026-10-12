@@ -24,7 +24,11 @@ popd
 
 echo.
 echo [2/3] Desplegando el backend en el VPS (!VPS_HOST!) por SSH...
-ssh -p !VPS_PORT! !VPS_USER!@!VPS_HOST! "mkdir -p juanperro && cd juanperro && bash deploy_scripts/server_update.sh"
+set "REPO_URL=https://!GITHUB_TOKEN!@github.com/!GITHUB_REPO!.git"
+
+:: El primer deploy clona el repo en el VPS; los siguientes solo hacen fetch.
+ssh -p !VPS_PORT! !VPS_USER!@!VPS_HOST! "mkdir -p juanperro && cd juanperro && (git remote set-url origin '!REPO_URL!' 2>/dev/null || (git init -q && git remote add origin '!REPO_URL!')) && git fetch -q origin main && git reset --hard origin/main && bash deploy_scripts/server_update.sh"
+
 
 echo.
 echo [3/3] Subiendo el front al FTP (!FTP_HOST!)...
